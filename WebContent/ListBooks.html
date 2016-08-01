@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>My First REST Call</title>
+<script src="/DevMediaWebServicesProject/jquery-2.2.0.js"></script>
+</head>
+<body>
+	<form>
+		<input type="text" id="obra" /> <input type="button" value="Buscar"
+			onclick="procuraObra();" /> <br /> 
+	</form>
+	<br />
+	<table border="1">
+		<tr>
+			<td>Obra</td>
+			<td><span id="theObra"></span></td>
+		</tr>
+		<tr>
+			<td>Autor</td>
+			<td><span id="theAutor"></span></td>
+		</tr>
+		<tr>
+			<td>País</td>
+			<td><span id="thePais"></span></td>
+		</tr>
+		<tr>
+			<td>Uf</td>
+			<td><span id="theUf"></span></td>
+		</tr>
+	</table>
+	<script>
+		function procuraObra() {
+			var txtObra = $("#obra").val();
+			var resptheObra = $("#theObra");
+			var resptheAutor = $("#theAutor");
+			var respthePais = $("#thePais");
+			var resptheUf = $("#theUf");
+
+			$.ajax(
+					"http://localhost:8080/DevMediaWebServicesProject/webservice/ceprest/getCep/"
+							+ txtObra).done(function(data) {
+				resptheObra.html(data.book);
+				resptheAutor.html(data.autor);
+				respthePais.html(data.country);
+				resptheUf.html(data.state);
+			}).fail(function() {
+				alert("error");
+			});
+		}
+
+		$(document).ready(function() {
+
+		});
+	</script>
+</body>
+</html>
